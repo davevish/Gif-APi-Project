@@ -1,14 +1,13 @@
-$(document).ready(function() {
-    var carCompanies = ["Ferrari", "McLaren", "Honda", "Lamborghini", "Porsche", "Pagani"];
+var carCompanies = ["Ferrari", "McLaren", "Honda", "Lamborghini", "Porsche", "Pagani"];
 
     function displayGifButtons() {
         $("#buttons").empty();
-        for (var i = 0; i < actions.length; i++) {
+        for (var i = 0; i < carCompanies.length; i++) {
             var gifButton = $("<button>");
             gifButton.addClass("action");
             gifButton.addClass("btn btn-primary")
-            gifButton.attr("data-name", actions[i]);
-            gifButton.text(actions[i]);
+            gifButton.attr("data-name", carCompanies[i]);
+            gifButton.text(carCompanies[i]);
             $("#buttons").append(gifButton);
         }
     }
@@ -27,29 +26,29 @@ $(document).ready(function() {
 
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + cars + "&api_key=oxkAofrlO4kyulfi5hP4vBtGda2rUflL&limit=10";
         $.ajax({
-            url: queryURL
-            method: get;
+            url: queryURL,
+            method: "GET"
+        })
+
+        .done(function(response) {
+            $("#gifs").empty();
+            var results = response.data;
+
+            for (var i = 0; i < results.length; i++) {
+                var cargifdiv = $("<div>");
+                cargifdiv.addClass("cargifdiv");
+
+                var gifDisplay = $("<img>");
+                gifDisplay.attr("src", results[i].images.fixed_height_small_still.url);
+                gifDisplay.attr("data-still", results[i].images.fixed_height_small_still.url);
+                gifDisplay.attr("data-animate", results[i].images.fixed_height_small.url);
+                gifDisplay.attr("data-state", "still");
+                gifDisplay.addClass("image");
+                gifDiv.append(gifDisplay);
+                $("#gifs").prepend(gifDisplay);
+            }
         })
     }
-
-    .done(function(response) {
-        $("#gifs").empty();
-        var results = response.data;
-
-        for (var i = 0; i < results.length; i++) {
-            var cargifdiv = $("<div>");
-            cargifdiv.addClass("cargifdiv");
-
-            var gifDisplay = $("<img>");
-            gifDisplay.attr("src", results[i].images.fixed_height_small_still.url);
-            gifDisplay.attr("data-still", results[i].images.fixed_height_small_still.url);
-            gifDisplay.attr("data-animate", results[i].images.fixed_height_small.url);
-            gifDisplay.attr("data-state", "still");
-            gifDisplay.addClass("image");
-            gifDiv.append(gifDisplay);
-            $("#gifs").prepend(gifDisplay);
-        }
-    })
     displayGifButtons();
     makeNewButton();
     $(document).on("click", ".action", showCarGifs);
@@ -64,4 +63,3 @@ $(document).ready(function() {
             $(this).attr('data-state', 'still');
         }
     });
-});
