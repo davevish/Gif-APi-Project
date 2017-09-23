@@ -24,7 +24,7 @@ var carCompanies = ["Ferrari", "McLaren", "Honda", "Lamborghini", "Porsche", "Pa
     function showCarGifs() {
         var carCompanies = $(this).attr("data-name");
 
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + cars + "&api_key=oxkAofrlO4kyulfi5hP4vBtGda2rUflL&limit=10";
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + carCompanies + "&api_key=oxkAofrlO4kyulfi5hP4vBtGda2rUflL&limit=10";
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -44,7 +44,7 @@ var carCompanies = ["Ferrari", "McLaren", "Honda", "Lamborghini", "Porsche", "Pa
                 gifDisplay.attr("data-animate", results[i].images.fixed_height_small.url);
                 gifDisplay.attr("data-state", "still");
                 gifDisplay.addClass("image");
-                gifDiv.append(gifDisplay);
+                cargifdiv.append(gifDisplay);
                 $("#gifs").prepend(gifDisplay);
             }
         })
