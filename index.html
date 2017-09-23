@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Soccer gifs!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h1>What is your favorite soccer team?</h1>
+		<form id="newTeams">
+			<div class="container newButton col-sm-offset-3 col-sm-6 col-sm-offset-3">
+				<label for="teamButton">Add new teams!</label>
+				<input type="text" id="teamButton">
+					<!-- Button triggers new movie to be added -->
+				<input id="newTeam" type="submit" value="Submit">
+					<!-- teams will get dumped here -->
+			</div>
+			<div class="container allTheButtons col-sm-12" id="soccerTeams"></div>
+		</form>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+			// Initial array of teams
+		var teams = ["Chelsea", "Liverpool", "Arsenal", "Manchester United", "Tottenham"];
+			// Function for displaying movie data
+		function renderButtons() {
+				// Deleting the movie buttons prior to adding new movie buttons
+				// (this is necessary otherwise we will have repeat buttons)
+			$("#soccerTeams").empty();
+				// Looping through the array of teams
+			for (var i = 0; i < teams.length; i++) {
+					// Then dynamicaly generating buttons for each movie in the array.
+					// This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+				var a = $("<button>");
+					// Adding a class
+				a.addClass("movie");
+					// Adding a data-attribute with a value of the movie at index i
+				a.attr("data-name", teams[i]);
+					// Providing the button's text with a value of the movie at index i
+				a.text(teams[i]);
+					// Adding the button to the HTML
+				$("#soccerTeams").append(a);
+			}
+		}
+			// This function handles events where one button is clicked
+		$("#newTeam").on("click", function(event) {
+				// event.preventDefault() prevents the form from trying to submit itself.
+				// We're using a form so that the user can hit enter instead of clicking the button if they want
+			event.preventDefault();
+				// This line will grab the text from the input box
+			var movie = $("#teamButton").val().trim();
+				// The movie from the textbox is then added to our array
+			teams.push(movie);
+				// calling renderButtons which handles the processing of our movie array
+			renderButtons();
+		});
+
+			// Calling the renderButtons function at least once to display the initial list of teams
+		renderButtons();
+	</script>
+</div>
+</body>
+</html>
